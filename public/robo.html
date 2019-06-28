@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Robô</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light bg-primary fixed-top stats">
+        <div class="col-md-2">Ataque: <div id="atk">0</div>
+        </div>
+        <div class="col-md-2">Defesa: <div id="def">0</div>
+        </div>
+        <div class="col-md-2"> Vida: <div id="hp">50</div>
+        </div>
+        <div class="col-md-2"> Moedas: <div id="moedas">50</div>
+        </div>
+    </nav>
+
+    <div class="screen">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="robo"><img id="showRobo" class="pulse" src="robo-idle.gif"></img></div>
+            </div>
+            <div class="col-md-6 pt-5">
+                <div class="row pt-5">
+                    <div class="col-md-12">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab"
+                                            data-target="#tabone">Equipamento</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="" data-toggle="tab" data-target="#tabtwo">PvE</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" data-toggle="tab" data-target="#tabthree">PvP</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content mt-2">
+                                    <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+                                        <div class="">
+                                            <div class="pt-5">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="p-4 col-lg-4 col-md-6">
+                                                            <h4><b>Pernas Básicas</b></h4>
+                                                            <p><img src="ataque.png">&nbsp;Ataque: +<span
+                                                                    class="statNumber" id="pbAtk"></span><br><img
+                                                                    src="defesa.png">&nbsp;Defesa: +<span
+                                                                    class="statNumber" id="pbDef"></span></p>
+                                                            <p>
+                                                                <a href="#" onclick="setPernasBasico()"
+                                                                    class="btn btn-primary">Comprar &nbsp;<img
+                                                                        src="coins.png"><b>&nbsp;<span
+                                                                            id="pbPreco"></span></b></a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="p-4 col-lg-4 col-md-6">
+                                                            <h4><b>Pernas Raras</b></h4>
+                                                            <p><img src="ataque.png">&nbsp;Ataque: +<span
+                                                                    class="statNumber" id="prAtk"></span><br><img
+                                                                    src="defesa.png">&nbsp;Defesa: +<span
+                                                                    class="statNumber" id="prDef"></span></p>
+                                                            <p>
+                                                                <a href="#" onclick="setPernasRaro()"
+                                                                    class="btn btn-success">Comprar &nbsp;<img
+                                                                        src="coins.png"><b>&nbsp;<span
+                                                                            id="prPreco"></span></b></a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="p-4 col-lg-4">
+                                                            <h4><b>Pernas Lendárias</b></h4>
+                                                            <p><img src="ataque.png">&nbsp;Ataque: +<span
+                                                                    class="statNumber" id="plAtk"></span><br><img
+                                                                    src="defesa.png">&nbsp;Defesa: +<span
+                                                                    class="statNumber" id="plDef"></span></p>
+                                                            <p>
+                                                                <a href="#" onclick="setPernasLendario()"
+                                                                    class="btn btn-dark">Comprar &nbsp;<img
+                                                                        src="coins.png"><b>&nbsp;<span
+                                                                            id="plPreco"></span></b></a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pt-0">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="p-4 col-lg-4 col-md-6">
+                                                            <h4><b>Braços Básicos</b></h4>
+                                                            <p><img src="ataque.png">&nbsp;Ataque: +<span
+                                                                    class="statNumber" id="bbAtk"></span><br><img
+                                                                    src="defesa.png">&nbsp;Defesa: +<span
+                                                                    class="statNumber" id="bbDef"></span></p>
+                                                            <p>
+                                                                <a href="#" onclick="setBracosBasico()"
+                                                                    class="btn btn-primary">Comprar &nbsp;<img
+                                                                        src="coins.png"><b>&nbsp;<span
+                                                                            id="bbPreco"></span></b></a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="p-4 col-lg-4 col-md-6">
+                                                            <h4><b>Braços Raros</b></h4>
+                                                            <p><img src="ataque.png">&nbsp;Ataque: +<span
+                                                                    class="statNumber" id="brAtk"></span><br><img
+                                                                    src="defesa.png">&nbsp;Defesa: +<span
+                                                                    class="statNumber" id="brDef"></span></p>
+                                                            <p>
+                                                                <a href="#" onclick="setBracosRaro()"
+                                                                    class="btn btn-success">Comprar &nbsp;<img
+                                                                        src="coins.png"><b>&nbsp;<span
+                                                                            id="brPreco"></span></b></a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="p-4 col-lg-4">
+                                                            <h4><b>Braços Lendários</b></h4>
+                                                            <p><img src="ataque.png">&nbsp;Ataque: +<span
+                                                                    class="statNumber" id="blAtk"></span><br><img
+                                                                    src="defesa.png">&nbsp;Defesa: +<span
+                                                                    class="statNumber" id="blDef"></span></p>
+                                                            <p>
+                                                                <a href="#" onclick="setBracosLendario()"
+                                                                    class="btn btn-dark">Comprar &nbsp;<img
+                                                                        src="coins.png"><b>&nbsp;<span
+                                                                            id="blPreco"></span></b></a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+                                        <p><img class="pulse fogo" id="fogo" src="goku.gif"/></p>
+                                        <p><img class="boss pulse" id="boss" src="boss1.png"/></p>
+                                        <p class=""><a href="#" onclick="trovaoFlamejante()" class="btn btn-success mx-1">Habilidade Especial!</a><a href="#" onclick="atacarBoss()" class="btn btn-dark mx-1">Ataque Básico</a><br>
+                                            Defesa: <span id="bossDef">Defesa</span><br>
+                                            HP: <span id="bossHp">HP</span><br>
+                                            Ataque: <span id="bossAtk">Ataque</span><br>
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane fade" id="tabthree" role="tabpanel">
+                                        <p class="">In my soul and absorb its power, like the form of a beloved
+                                            mistress, then I often think with longing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+                    
+                    
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script type="text/javascript">
+        var socket = io('http://localhost:80');
+    </script>
+    <script type="text/javascript" src="stats.js"></script>
+    <script type="text/javascript" src="itens.js"></script>
+    <script type="text/javascript" src="boss.js"></script>
+    <script type="text/javascript" src="robo.js"></script>
+    <script type="text/javascript" src="luta.js"></script>
+    <script type="text/javascript" src="display.js"></script>
+    <link rel="stylesheet" href="robo.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

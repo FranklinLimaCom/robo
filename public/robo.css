@@ -1,0 +1,78 @@
+.robo{
+    text-align: center;
+    margin: 150px;
+}
+
+.botoes{
+    text-align: center;
+}
+
+.stats{
+    color: #fff !important;
+    font-weight: 700;    
+}
+
+.itens-title{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 25px;
+}
+
+.btn{
+    margin-bottom: 5px;
+}
+
+.statNumber{
+    font-weight: 900;
+    color: #27ae60;
+}
+
+.boss{
+    width: 350px;
+    height: auto;
+}
+
+.pulse {
+    animation: pulse 0.7s infinite;
+    margin: 0 auto;
+    display: table;
+    margin-top: 50px;
+    animation-direction: alternate;
+    -webkit-animation-name: pulse;
+    animation-name: pulse;    
+  }
+  
+  @-webkit-keyframes pulse {
+    0% {
+      -webkit-transform: scale(1);
+      -webkit-filter: brightness(100%);
+    }
+    100% {
+      -webkit-transform: scale(1.1);
+      -webkit-filter: brightness(200%);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      filter: brightness(100%);
+    }
+    100% {
+      transform: scale(1.1);
+      filter: brightness(200%);
+    }
+  }
+
+  .fogo{
+      position: absolute;
+      margin-top: 20px;
+      margin-left: 200px;      
+      z-index: 9999;
+  }
+
+  .fogo {            
+    opacity: 1;
+    transition: opacity .15s ease-in-out;
+}
+
